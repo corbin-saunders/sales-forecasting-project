@@ -1,5 +1,6 @@
 data/
 venv/
+__pycache__/
 *.pk1
 *.csv
 .ipynb_checkpoints/
