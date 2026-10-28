@@ -3,5 +3,6 @@ venv/
 __pycache__/
 *.pk1
 *.csv
+!results/*.csv
 .ipynb_checkpoints/
 notebooks/testing.ipynb

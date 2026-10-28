@@ -8,3 +8,5 @@ def evaluate_forecast(test_series, forecast):
     print(f"RMSE: {RMSE:.2f}")
     print(f"MAE: {MAE:.2f}")
     print(f"WAPE: {WAPE:.2f}%")
+
+    return RMSE, MAE, WAPE
