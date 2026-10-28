@@ -4,3 +4,4 @@ __pycache__/
 *.pk1
 *.csv
 .ipynb_checkpoints/
+notebooks/testing.ipynb
