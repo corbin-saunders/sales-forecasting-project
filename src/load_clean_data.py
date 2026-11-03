@@ -3,8 +3,8 @@ from pathlib import Path
 
 def load_and_merge_data():
     # TODO: fix relative path if this breaks when imported elsewhere
-    train_data = pd.read_csv('../data/train.csv')
-    store_data = pd.read_csv('../data/store.csv')
+    train_data = pd.read_csv('../data/train.csv', low_memory=False)
+    store_data = pd.read_csv('../data/store.csv', low_memory=False)
 
     df = train_data.merge(store_data, on='Store', how='left')
 

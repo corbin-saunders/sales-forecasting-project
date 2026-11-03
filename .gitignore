@@ -6,3 +6,4 @@ __pycache__/
 !results/*.csv
 .ipynb_checkpoints/
 notebooks/testing.ipynb
+notebooks/OLD*
