@@ -31,4 +31,6 @@ def load_clean_data():
 
     df['Date'] = pd.to_datetime(df['Date'])
 
+    df = df.sort_values(by=['Store', 'Date']).reset_index(drop=True)
+
     return df
