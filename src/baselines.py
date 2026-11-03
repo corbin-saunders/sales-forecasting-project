@@ -27,3 +27,17 @@ def add_window_avg_baseline(train, test, cutoff, window_days, column_name):
     test_with_baseline = test.merge(baseline_forecast, on=['Store', 'DayOfWeek'], how='left', validate='many_to_one')
 
     return test_with_baseline
+
+def add_all_baselines(train, test, cutoff):
+
+    """
+    Returns a copy of test with new columns for each baseline forecast. 
+    Each row gets the mean of the sales from the same store and weekday over the last 7 days, 28 days, and all available data immediately before the cutoff.
+
+    """
+
+    test_with_baselines = add_window_avg_baseline(train, test, cutoff, 7, 'naive_baseline')
+    test_with_baselines = add_window_avg_baseline(train, test_with_baselines, cutoff, 28, 'avg_28d_baseline')
+    test_with_baselines = add_window_avg_baseline(train, test_with_baselines, cutoff, None, 'avg_all_baseline')
+
+    return test_with_baselines
