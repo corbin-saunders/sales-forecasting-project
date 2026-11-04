@@ -38,3 +38,23 @@ def split_data_by_cutoff(df, cutoff, horizon_days):
     test = df[(df['Date'] >= cutoff) & (df['Date'] < test_end)].copy()
 
     return train, test
+
+def run_backtest(df, cutoffs, horizon_days, forecast_fn):
+    """
+    For each cutoff, splits df into train and test, calls forecast_fn(train, test, cutoff), and tags the result with the cutoff date and day_ahead (1 for the cutoff day, up to horizon_days). 
+    Returns all results stacked into one DataFrame.
+    
+    """
+    results = []
+
+    for cutoff in cutoffs:
+        train, test = split_data_by_cutoff(df, cutoff, horizon_days)
+
+        forecast = forecast_fn(train, test, cutoff)
+
+        forecast['cutoff'] = cutoff
+        forecast['day_ahead'] = (forecast['Date'] - cutoff).dt.days + 1
+
+        results.append(forecast)
+
+    return pd.concat(results, ignore_index=True)
