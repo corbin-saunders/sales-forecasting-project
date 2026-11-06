@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 def add_sales_lag(df, days):
 
@@ -126,3 +127,30 @@ FEATURE_COLUMNS = ['DayOfWeek', 'Promo', 'SchoolHoliday', 'IsStateHoliday', 'Sta
                    'CompetitionDistance', 'CompetitionMonths', 'Promo2', 'SalesLag7', 'SalesLag14',
                    'SalesLag28', 'SalesLagMean4w', 'SalesLagMean8w'
                   ]
+
+def check_no_leakage(df, featured_df, cutoff, horizon_days=7):
+    cutoff = pd.Timestamp(cutoff)
+    test_end = cutoff + pd.Timedelta(days=horizon_days)
+
+    def test_week(features):
+        in_week = (features['Date'] >= cutoff) & (features['Date'] < test_end)
+        return (features.loc[in_week, ['Store', 'Date'] + FEATURE_COLUMNS]
+                        .sort_values(['Store', 'Date'])
+                        .reset_index(drop=True))
+
+    expected = test_week(featured_df)
+
+    # real test: remove all sales from the cutoff onwards, features should not change
+    future_removed = df.copy()
+    future_removed.loc[future_removed['Date'] >= cutoff, 'Sales'] = np.nan
+    pd.testing.assert_frame_equal(expected, test_week(build_features(future_removed)))
+
+    # control: remove the week BEFORE the cutoff, features should change
+    past_removed = df.copy()
+    week_before = (past_removed['Date'] >= cutoff - pd.Timedelta(days=7)) & (past_removed['Date'] < cutoff)
+    past_removed.loc[week_before, 'Sales'] = np.nan
+    assert not expected.equals(test_week(build_features(past_removed))), \
+        "control failed: removing the week before the cutoff changed nothing, so the test proves nothing"
+
+    print(f"{cutoff.date()}: no leakage, control passed")
+
