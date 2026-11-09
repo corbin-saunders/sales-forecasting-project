@@ -40,7 +40,7 @@ def add_xgb_forecast(train, test, cutoff):
     assert len(preds_clipped) == len(test), "The number of predictions should match the number of test samples."
     assert not np.isnan(preds_clipped).any(), "Predictions should not contain any NaN values."
 
-    return test.assign(xgboost_forecast=preds_clipped)
+    return test.assign(xgb_forecast=preds_clipped)
 
 def add_lgbm_forecast(train, test, cutoff):
 
