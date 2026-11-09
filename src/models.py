@@ -24,12 +24,12 @@ LGBM_PARAMS = {
     'verbose': -1
 }
 
-def add_xgb_forecast(train, test, cutoff):
+def add_xgb_forecast(train, test, cutoff, params=XGB_PARAMS):
 
     X_train = train[FEATURE_COLUMNS]
     y_train = train['Sales']
 
-    model = xgb.XGBRegressor(**XGB_PARAMS)
+    model = xgb.XGBRegressor(**params)
 
     model.fit(X_train, y_train)
 
@@ -42,12 +42,12 @@ def add_xgb_forecast(train, test, cutoff):
 
     return test.assign(xgb_forecast=preds_clipped)
 
-def add_lgbm_forecast(train, test, cutoff):
+def add_lgbm_forecast(train, test, cutoff, params=LGBM_PARAMS):
 
     X_train = train[FEATURE_COLUMNS]
     y_train = train['Sales']
 
-    model = lgbm.LGBMRegressor(**LGBM_PARAMS)
+    model = lgbm.LGBMRegressor(**params)
 
     model.fit(X_train, y_train)
 
