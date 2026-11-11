@@ -25,6 +25,33 @@ LGBM_PARAMS = {
     'verbose': -1
 }
 
+XGB_TUNED_PARAMS = {
+    'tree_method': 'hist',
+    'enable_categorical': True,
+    'n_estimators': 491,
+    'learning_rate': 0.047629,
+    'max_depth': 4,
+    'min_child_weight': 26,
+    'subsample': 0.569898,
+    'colsample_bytree': 0.557265,
+    'reg_lambda': 2.17173,
+    'random_state': 42
+}
+
+LGBM_TUNED_PARAMS = {
+    'n_estimators': 491,
+    'learning_rate': 0.047629,
+    'num_leaves': 38,
+    'subsample_freq': 1,
+    'min_child_samples': 106,
+    'subsample': 0.569898,
+    'colsample_bytree': 0.557265,
+    'reg_lambda': 2.17173,
+    'random_state': 42,
+    'verbose': -1
+}
+
+
 def add_xgb_forecast(train, test, cutoff, params=XGB_PARAMS):
 
     X_train = train[FEATURE_COLUMNS]
