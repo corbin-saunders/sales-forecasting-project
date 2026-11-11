@@ -42,3 +42,15 @@ def score_forecasts(bt, forecast_cols, by=None):
             scores.append(row)
             
     return pd.DataFrame(scores)
+
+def merge_backtests(backtests):
+
+    cols = {'baselines': ['naive_baseline', 'avg_28d_baseline', 'avg_all_baseline'], 'xgb': ['xgb_forecast'], 'lgbm': ['lgbm_forecast'], 'xgb_tuned':['xgb_tuned_forecast'], 'lgbm_tuned':['lgbm_tuned_forecast']}
+
+    bt = pd.read_csv(f'../results/backtests/{backtests[0]}_backtest.csv', parse_dates=['Date', 'cutoff'], usecols=['Store', 'Date', 'Sales', 'cutoff', 'day_ahead'] + cols[backtests[0]])
+
+    for backtest in backtests[1:]:
+        merging_bt = pd.read_csv(f'../results/backtests/{backtest}_backtest.csv', parse_dates=['Date', 'cutoff'], usecols=['Store', 'Date', 'cutoff'] + cols[backtest])
+        bt = bt.merge(merging_bt, on=['Store', 'Date', 'cutoff'], how='left', validate='one_to_one')
+
+    return bt
