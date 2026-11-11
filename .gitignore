@@ -5,6 +5,7 @@ __pycache__/
 *.csv
 !results/*.csv
 results/backtests/
+!results/tuning/*.csv
 .ipynb_checkpoints/
 notebooks/testing.ipynb
 notebooks/OLD*
