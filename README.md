@@ -1,4 +1,4 @@
-# Retail Sales Forecasting: Does Deep Learning Beat Gradient Boosting
+# Retail Sales Forecasting: Does Deep Learning Beat Gradient Boosting?
 
 Forecasting daily sales for the Rossmann stores, 7 days ahead, to test whether deep learning earns its complexity over gradient boosting. simple baselines are the floor, then xgboost and lightgbm, then deep learning models with the same features and the same test.
 
@@ -28,6 +28,8 @@ To run this project yourself, download the dataset from Kaggle and place the CSV
 ## The Question
 
 does deep learning beat gradient boosting on retail demand forecasting, and is it worth the extra complexity? the boosted trees are tested first, with simple baselines as the floor. the deep learning models get the same features, the same test and the same tuning budget, so the comparison is fair.
+
+i also tried per store classical models first (sarima, ets and prophet). they are on the [classical-models branch](https://github.com/corbin-saunders/sales-forecasting-project/tree/classical-models) and are not part of the main comparison.
 
 ## How It Is Tested
 
