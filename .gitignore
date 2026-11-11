@@ -1,7 +1,6 @@
 data/
 venv/
 __pycache__/
-*.pk1
 *.csv
 !results/*.csv
 results/backtests/
