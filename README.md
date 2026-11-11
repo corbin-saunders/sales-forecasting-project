@@ -6,7 +6,7 @@ status: baselines, features, xgboost, lightgbm and tuning are done. deep learnin
 
 ## Why this matters
 
-Retailers need to predict how much they'll sell in the coming days and weeks to make real decisions — how much stock to order, how many staff to schedule, and when to run promotions. Getting this wrong means either running out of stock (lost sales) or over-ordering (wasted inventory). This project builds and compares several forecasting approaches to predict daily sales at the store level.
+Retailers need to predict how much they'll sell in the coming days and weeks to make real decisions: how much stock to order, how many staff to schedule, and when to run promotions. Getting this wrong means either running out of stock (lost sales) or over-ordering (wasted inventory). This project builds and compares several forecasting approaches to predict daily sales at the store level.
 
 ## Dataset
 
@@ -17,7 +17,7 @@ This project uses the [Rossmann Store Sales dataset](https://www.kaggle.com/data
 - Data from January 2013 to July 2015
 - Includes store-level info (store type, competition distance) and daily context (promotions, holidays)
 
-To run this project yourself, download the dataset from Kaggle and place the CSVs in a `data/` folder (not included in this repo — see note below).
+To run this project yourself, download the dataset from Kaggle and place the CSVs in a `data/` folder.
 
 ## Key findings (exploratory analysis)
 
@@ -51,6 +51,14 @@ does deep learning beat gradient boosting on retail demand forecasting, and is i
 | Naive baseline (last week) | 36.70% | 36.06% |
 
 the last 15 weeks are the fairer test of tuning, because the search never saw them.
+
+![WAPE by cutoff for the baselines and the boosted models](results/figures/WAPE_by_cutoff_all_models.png)
+
+the baselines spike around easter (the 30 mar and 6 apr cutoffs), because they predict a normal day on a holiday. the models have the holiday flag, so they spike much less.
+
+![WAPE by cutoff, untuned against tuned](results/figures/WAPE_by_cutoff_tuned_vs_untuned.png)
+
+the shaded weeks are the 15 the search never saw. the tuned and untuned lines mostly overlap there, apart from the week of 1 june.
 
 ## What I Found
 
