@@ -7,6 +7,7 @@ import lightgbm as lgbm
 
 from functools import partial
 import time
+import os
 
 from features import FEATURE_COLUMNS
 from backtest import run_backtest
@@ -38,7 +39,7 @@ def sample_param(spec, rng):
         raise ValueError(f'incorrect type indentifier {kind}')
     
 
-def random_search(df, cutoffs, forecast_fn, forecast_col, base_params, search_space, n_trials, seed=42):
+def random_search(df, cutoffs, forecast_fn, forecast_col, base_params, search_space, n_trials, seed=42, path=None):
 
     def run_trial(trial, params, settings):
         start = time.perf_counter()
@@ -51,6 +52,8 @@ def random_search(df, cutoffs, forecast_fn, forecast_col, base_params, search_sp
 
         return {'trial': trial, **settings, **score, 'seconds': seconds}
 
+    os.makedirs(os.path.dirname(path), exist_ok=True) #type:ignore
+
     rng = np.random.default_rng(seed)
 
     results = []
@@ -62,5 +65,8 @@ def random_search(df, cutoffs, forecast_fn, forecast_col, base_params, search_sp
         params = {**base_params, **settings}
 
         results.append(run_trial(i, params, settings))
+
+        if path is not None:
+            pd.DataFrame(results).sort_values('WAPE').to_csv(path, index=False)
 
     return pd.DataFrame(results).sort_values('WAPE')

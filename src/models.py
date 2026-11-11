@@ -20,6 +20,7 @@ LGBM_PARAMS = {
     'n_estimators': 300,
     'learning_rate': 0.05,
     'num_leaves': 63,
+    'subsample_freq': 1,
     'random_state': 42,
     'verbose': -1
 }
