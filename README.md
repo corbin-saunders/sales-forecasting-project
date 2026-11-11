@@ -1,4 +1,4 @@
-# sales-forecasting-project
+# Retail Sales Forecasting: Does Deep Learning Beat Gradient Boosting
 
 Forecasting daily sales for the Rossmann stores, 7 days ahead, to test whether deep learning earns its complexity over gradient boosting. simple baselines are the floor, then xgboost and lightgbm, then deep learning models with the same features and the same test.
 
