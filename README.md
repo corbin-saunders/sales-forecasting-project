@@ -44,9 +44,9 @@ i also tried per store classical models first (sarima, ets and prophet). they ar
 
 | Model | WAPE, last 15 weeks | WAPE, all 25 weeks |
 |---|---|---|
-| LightGBM (tuned) | 10.01% | 10.18% |
+| LightGBM (tuned) | 10.03% | 10.19% |
 | XGBoost | 10.14% | 10.33% |
-| XGBoost (tuned) | 10.25% | 10.31% |
+| XGBoost (tuned) | 10.30% | 10.34% |
 | LightGBM | 10.49% | 10.57% |
 | Full history average baseline | 21.62% | 21.53% |
 | 28 day average baseline | 23.14% | 22.63% |
