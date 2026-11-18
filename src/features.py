@@ -120,6 +120,8 @@ def build_features(df):
 
     state_holiday_df[category_cols] = state_holiday_df[category_cols].astype('category')
 
+    state_holiday_df['StoreID'] = state_holiday_df['Store'].astype('category')
+
     return state_holiday_df
 
 FEATURE_COLUMNS = ['DayOfWeek', 'Promo', 'SchoolHoliday', 'IsStateHoliday', 'StateHolidayType',
