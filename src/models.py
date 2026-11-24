@@ -26,16 +26,16 @@ LGBM_PARAMS = {
 }
 
 
-def add_xgb_forecast(train, test, cutoff, params=XGB_PARAMS):
+def add_xgb_forecast(train, test, cutoff, params=XGB_PARAMS, feature_cols=FEATURE_COLUMNS):
 
-    X_train = train[FEATURE_COLUMNS]
+    X_train = train[feature_cols]
     y_train = train['Sales']
 
     model = xgb.XGBRegressor(**params)
 
     model.fit(X_train, y_train)
 
-    preds = model.predict(test[FEATURE_COLUMNS])
+    preds = model.predict(test[feature_cols])
 
     preds_clipped = np.clip(preds, 0, None)
 
@@ -44,16 +44,16 @@ def add_xgb_forecast(train, test, cutoff, params=XGB_PARAMS):
 
     return test.assign(xgb_forecast=preds_clipped)
 
-def add_lgbm_forecast(train, test, cutoff, params=LGBM_PARAMS):
+def add_lgbm_forecast(train, test, cutoff, params=LGBM_PARAMS, feature_cols=FEATURE_COLUMNS):
 
-    X_train = train[FEATURE_COLUMNS]
+    X_train = train[feature_cols]
     y_train = train['Sales']
 
     model = lgbm.LGBMRegressor(**params)
 
     model.fit(X_train, y_train)
 
-    preds = model.predict(test[FEATURE_COLUMNS])
+    preds = model.predict(test[feature_cols])
 
     preds_clipped = np.clip(np.asarray(preds), 0, None)
 

@@ -43,14 +43,18 @@ i also tried per store classical models first (sarima, ets and prophet). they ar
 ## Results
 
 | Model | WAPE, last 15 weeks | WAPE, all 25 weeks |
-|---|---|---|
-| LightGBM (tuned) | 10.01% | 10.18% |
-| XGBoost | 10.14% | 10.33% |
-| XGBoost (tuned) | 10.25% | 10.31% |
-| LightGBM | 10.49% | 10.57% |
-| Full history average baseline | 21.62% | 21.53% |
-| 28 day average baseline | 23.14% | 22.63% |
-| Naive baseline (last week) | 36.70% | 36.06% |
+| --- | --- | --- |
+| XGBoost with store ID, tuned | 9.24% | 9.11% |
+| XGBoost with store ID | 9.48% | 9.33% |
+| LightGBM with store ID, tuned | 9.64% | 9.59% |
+| LightGBM with store ID | 9.91% | 9.74% |
+| LightGBM, tuned | 10.19% | 10.03% |
+| XGBoost | 10.33% | 10.14% |
+| XGBoost, tuned | 10.34% | 10.30% |
+| LightGBM | 10.57% | 10.49% |
+| Full history average baseline | 21.53% | 21.62% |
+| 28 day average baseline | 22.63% | 23.14% |
+| Naive baseline | 36.06% | 36.70% |
 
 the last 15 weeks are the fairer test of tuning, because the search never saw them.
 
